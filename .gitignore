@@ -16,3 +16,10 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+# Original Setting
+.DS_Store
+.gems
+Gemfile.lock
+*\.JPG
+*\.NEF
