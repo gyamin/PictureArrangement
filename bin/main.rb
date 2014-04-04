@@ -40,14 +40,15 @@ class  MainController
   end
   
   def arrange_pictures
-    
-    picture_arrangement = PictureArrangement.new(
-                          @text_source_path.text, 
-                          @text_destination_path.text)
-                        
+
+    picture_arrangement = PictureArrangement.new()
+    picture_arrangement.source_dir = @text_source_path.text
+    picture_arrangement.destination_dir = @text_destination_path.text
+            
     # 写真整理実行
-    picture_arrangement.arrange_pictures(@txtbox_progress);
-    
+    @progress_bar.progress_property.bind(picture_arrangement.progress_property)
+    Java::java.lang.Thread.new(picture_arrangement).start
+    #picture_arrangement.arrange_pictures();
   end
   
 end

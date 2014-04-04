@@ -22,5 +22,5 @@
 <Button fx:id="btn_select_source_directory" layoutX="506.0" layoutY="75.0" mnemonicParsing="false" onAction="#select_source_directory" text="選択" />
 <Button fx:id="btn_select_destination_directory" layoutX="506.0" layoutY="127.0" mnemonicParsing="false" onAction="#select_destination_directory" text="選択" />
 <Button fx:id="btn_arrange_pictures" layoutX="493.0" layoutY="210.0" mnemonicParsing="false" onAction="#arrange_pictures" text="整理実行" />
-<TextField fx:id="txtbox_progress" editable="false" layoutX="322.0" layoutY="210.0" />
+<TextField fx:id="txtbox_progress" editable="false" layoutX="315.0" layoutY="248.0" /><ProgressBar fx:id="progress_bar" layoutX="140.0" layoutY="169.0" prefWidth="200.0" progress="0.0" /><ProgressIndicator layoutX="362.0" layoutY="166.0" progress="0.0" />
 </children></Pane>

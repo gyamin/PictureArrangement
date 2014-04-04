@@ -3,24 +3,28 @@
 # #-- から #++まではRdocでのコメント生成が行われない。
 #++
 
+require 'jrubyfx'
 require 'fileutils'
 require 'exifr'
 
-class PictureArrangement
+class PictureArrangement < javafx.concurrent.Task
 
-  attr_accessor :source_dir, :destination_dir, :stage
+  attr_accessor :source_dir, :destination_dir
 
-  def initialize(source_dir, destination_dir)
-    if File.exist?(source_dir)
-      @source_dir = source_dir
-    else
-      raise "Directory not exist"    
-    end
-    if File.exist?(destination_dir)
-      @destination_dir = destination_dir
-    else
-      raise "Directory not exist"    
-    end
+#  def initialize(source_dir, destination_dir)
+#    if File.exist?(source_dir)
+#      @source_dir = source_dir
+#    else
+#      raise "Directory not exist"    
+#    end
+#    if File.exist?(destination_dir)
+#      @destination_dir = destination_dir
+#    else
+#      raise "Directory not exist"    
+#    end
+#  end
+  def initialize(max_val=100)
+    @denominator = max_val
   end
     
   # === Description: Return files in @source_dir direcotory.
@@ -54,16 +58,17 @@ class PictureArrangement
     end
   end
 
-  def arrange_pictures(txtbox_progress = nil)
+  #def arrange_pictures()
+  def call()
     pictures = self.get_pictures(["JPG", "NEF"])
-    progress_denominator = pictures.length
+    @denominator = pictures.length
 
     pictures.each_with_index do |picture, i|
 
-      # 進捗表示する場合
-      if(txtbox_progress)
-        txtbox_progress.text = "#{i + 1}/#{progress_denominator}"
-      end
+      # 進捗状況を取得
+      numerator = i + 1
+      p numerator
+      updateProgress(numerator, @denominator)
       
       # ファイルがJPGでない場合、次のループへ
       next if not /JPG$/ =~ picture
