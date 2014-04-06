@@ -7,26 +7,16 @@ require 'jrubyfx'
 require 'fileutils'
 require 'exifr'
 
+# === 参考
+# * https://github.com/jruby/jrubyfx/blob/master/samples/contrib/concurrency_demos/progress_bar_task_demo.rb
 class PictureArrangement < javafx.concurrent.Task
 
   attr_accessor :source_dir, :destination_dir
 
-#  def initialize(source_dir, destination_dir)
-#    if File.exist?(source_dir)
-#      @source_dir = source_dir
-#    else
-#      raise "Directory not exist"    
-#    end
-#    if File.exist?(destination_dir)
-#      @destination_dir = destination_dir
-#    else
-#      raise "Directory not exist"    
-#    end
-#  end
   def initialize(max_val=100)
     @denominator = max_val
   end
-    
+  
   # === Description: Return files in @source_dir direcotory.
   # === param:
   # * Array   exteintions : file extentions added to return pictures. 
@@ -58,8 +48,7 @@ class PictureArrangement < javafx.concurrent.Task
     end
   end
 
-  #def arrange_pictures()
-  def call()
+  def arrange_pictures()
     pictures = self.get_pictures(["JPG", "NEF"])
     @denominator = pictures.length
 
@@ -104,4 +93,30 @@ class PictureArrangement < javafx.concurrent.Task
 
     end
   end
-end 
+  
+  def call()
+    arrange_pictures()
+  end
+
+  # === Description: Check source and destination directory are exist.
+  # === param:
+  # === return:
+  # === exception:
+  # * Directory not exist
+  def check_directories
+    if File.exist?(source_dir)
+      @source_dir = source_dir
+    else
+      raise DirectoryNotExist, "Directory not exist"    
+    end
+    if File.exist?(destination_dir)
+      @destination_dir = destination_dir
+    else
+      raise DirectoryNotExist, "Directory not exist"    
+    end  
+  end
+  
+end
+
+class DirectoryNotExist < Exception
+end
