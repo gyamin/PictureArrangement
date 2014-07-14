@@ -4,7 +4,7 @@ require 'jrubyfx'
 require_relative 'picture_arrangement'
 fxml_root File.dirname(__FILE__)
 
-class MainApp < JRubyFX::Application
+class LaunchGui < JRubyFX::Application
   def start(stage)
     with(stage, title: "Picture Arrangement") do
       fxml MainController
@@ -53,4 +53,4 @@ class  MainController
   
 end
 
-MainApp.launch()
+LaunchGui.launch()
