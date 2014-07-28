@@ -2,6 +2,7 @@
 require 'java'
 require 'jrubyfx'
 require_relative 'picture_arrangement'
+#fxml_root File.join(File.dirname(__FILE__), "home,fxml")
 fxml_root File.dirname(__FILE__)
 
 class MainApp < JRubyFX::Application
